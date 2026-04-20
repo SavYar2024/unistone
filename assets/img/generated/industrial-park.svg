@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680" fill="none">
+  <rect width="900" height="680" rx="36" fill="#0B1219"/>
+  <rect x="70" y="70" width="760" height="540" rx="30" fill="#111925" stroke="#2C394A"/>
+  <path d="M140 490C220 430 300 430 380 490C460 550 540 550 620 490C700 430 760 430 760 430V570H140V490Z" fill="#1D6CF0" fill-opacity="0.10"/>
+  <rect x="120" y="140" width="180" height="160" rx="22" fill="#1B2430" stroke="#36465A"/>
+  <rect x="360" y="140" width="180" height="160" rx="22" fill="#1B2430" stroke="#36465A"/>
+  <rect x="600" y="140" width="180" height="160" rx="22" fill="#1B2430" stroke="#36465A"/>
+  <rect x="240" y="360" width="180" height="160" rx="22" fill="#1B2430" stroke="#36465A"/>
+  <rect x="480" y="360" width="180" height="160" rx="22" fill="#1B2430" stroke="#36465A"/>
+  <path d="M300 220H360" stroke="#CBA15A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M540 220H600" stroke="#CBA15A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M420 440H480" stroke="#CBA15A" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="300" cy="220" r="10" fill="#CBA15A"/>
+  <circle cx="360" cy="220" r="10" fill="#CBA15A"/>
+  <circle cx="540" cy="220" r="10" fill="#CBA15A"/>
+  <circle cx="600" cy="220" r="10" fill="#CBA15A"/>
+  <circle cx="420" cy="440" r="10" fill="#CBA15A"/>
+  <circle cx="480" cy="440" r="10" fill="#CBA15A"/>
+  <path d="M210 600H690" stroke="#334255" stroke-width="4" stroke-linecap="round"/>
+</svg>
