@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" fill="none">
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#0d2045"/>
+      <stop offset="100%" stop-color="#060d18"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1d6cf0" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#1d6cf0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#cba15a" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#cba15a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2840"/>
+      <stop offset="100%" stop-color="#0d1825"/>
+    </linearGradient>
+    <linearGradient id="buildingGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#152035"/>
+      <stop offset="100%" stop-color="#0a1320"/>
+    </linearGradient>
+    <linearGradient id="roofGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1d6cf0" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#cba15a" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f1e30"/>
+      <stop offset="100%" stop-color="#060d18"/>
+    </linearGradient>
+    <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="blur12"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="blur20"><feGaussianBlur stdDeviation="20"/></filter>
+    <linearGradient id="windowBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4b93ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1d6cf0" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="windowGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0d29e" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#cba15a" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="craneGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1d6cf0"/>
+      <stop offset="100%" stop-color="#4b93ff"/>
+    </linearGradient>
+    <linearGradient id="smokeGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#1d6cf0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1d6cf0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky background -->
+  <rect width="900" height="600" fill="url(#sky)"/>
+
+  <!-- Atmosphere glows -->
+  <ellipse cx="450" cy="320" rx="380" ry="180" fill="url(#glow1)" filter="url(#blur20)"/>
+  <ellipse cx="680" cy="400" rx="200" ry="120" fill="url(#glow2)" filter="url(#blur20)"/>
+
+  <!-- Stars -->
+  <g fill="white" opacity="0.5">
+    <circle cx="80" cy="40" r="1.2"/><circle cx="150" cy="20" r="0.8"/>
+    <circle cx="240" cy="55" r="1"/><circle cx="320" cy="30" r="1.3"/>
+    <circle cx="420" cy="15" r="0.9"/><circle cx="510" cy="48" r="1.1"/>
+    <circle cx="600" cy="22" r="0.8"/><circle cx="700" cy="38" r="1.2"/>
+    <circle cx="790" cy="18" r="0.9"/><circle cx="860" cy="55" r="1"/>
+    <circle cx="45" cy="90" r="0.7"/><circle cx="185" cy="75" r="1"/>
+    <circle cx="380" cy="68" r="0.8"/><circle cx="760" cy="72" r="1.1"/>
+  </g>
+
+  <!-- Ground plane -->
+  <rect x="0" y="480" width="900" height="120" fill="url(#groundGrad)"/>
+  <rect x="0" y="478" width="900" height="3" fill="#1d6cf0" opacity="0.3"/>
+
+  <!-- Background city silhouette -->
+  <g opacity="0.25" fill="#0f2035">
+    <rect x="0" y="340" width="60" height="140"/>
+    <rect x="15" y="300" width="30" height="40"/>
+    <rect x="70" y="360" width="50" height="120"/>
+    <rect x="130" y="320" width="70" height="160"/>
+    <rect x="150" y="290" width="30" height="30"/>
+    <rect x="210" y="350" width="40" height="130"/>
+    <rect x="760" y="330" width="60" height="150"/>
+    <rect x="820" y="355" width="80" height="125"/>
+    <rect x="830" y="310" width="35" height="45"/>
+  </g>
+
+  <!-- MAIN FACTORY COMPLEX -->
+  <!-- Large main hall -->
+  <rect x="160" y="260" width="340" height="220" fill="url(#buildingGrad)" rx="3"/>
+  <!-- Roof ridge -->
+  <polygon points="160,260 330,220 500,260" fill="#162133" opacity="0.9"/>
+  <line x1="160" y1="260" x2="330" y2="220" stroke="url(#roofGrad)" stroke-width="2.5"/>
+  <line x1="500" y1="260" x2="330" y2="220" stroke="url(#roofGrad)" stroke-width="2.5"/>
+
+  <!-- Main hall windows - large industrial -->
+  <g fill="url(#windowBlue)" rx="2">
+    <rect x="175" y="275" width="42" height="55" rx="2"/>
+    <rect x="228" y="275" width="42" height="55" rx="2"/>
+    <rect x="281" y="275" width="42" height="55" rx="2"/>
+    <rect x="334" y="275" width="42" height="55" rx="2"/>
+    <rect x="387" y="275" width="42" height="55" rx="2"/>
+    <rect x="440" y="275" width="42" height="55" rx="2"/>
+  </g>
+  <!-- Window reflections -->
+  <g fill="white" opacity="0.1">
+    <rect x="177" y="277" width="10" height="51" rx="1"/>
+    <rect x="230" y="277" width="10" height="51" rx="1"/>
+    <rect x="283" y="277" width="10" height="51" rx="1"/>
+    <rect x="336" y="277" width="10" height="51" rx="1"/>
+    <rect x="389" y="277" width="10" height="51" rx="1"/>
+    <rect x="442" y="277" width="10" height="51" rx="1"/>
+  </g>
+
+  <!-- Lower windows row -->
+  <g fill="url(#windowBlue)" opacity="0.7">
+    <rect x="175" y="345" width="42" height="36" rx="2"/>
+    <rect x="228" y="345" width="42" height="36" rx="2"/>
+    <rect x="281" y="345" width="42" height="36" rx="2"/>
+    <rect x="334" y="345" width="42" height="36" rx="2"/>
+    <rect x="387" y="345" width="42" height="36" rx="2"/>
+    <rect x="440" y="345" width="42" height="36" rx="2"/>
+  </g>
+
+  <!-- Door entrance -->
+  <rect x="300" y="420" width="60" height="60" fill="#0a1525" rx="2"/>
+  <rect x="303" y="423" width="26" height="57" fill="#1d3a5e" opacity="0.5"/>
+
+  <!-- Right tall building - office tower -->
+  <rect x="520" y="180" width="140" height="300" fill="url(#buildingGrad2)" rx="4"/>
+  <!-- Tower roof -->
+  <rect x="520" y="175" width="140" height="10" fill="#1d6cf0" opacity="0.6" rx="2"/>
+  <!-- Tower windows grid -->
+  <g fill="url(#windowGold)">
+    <rect x="532" y="195" width="28" height="22" rx="2"/>
+    <rect x="568" y="195" width="28" height="22" rx="2"/>
+    <rect x="604" y="195" width="28" height="22" rx="2"/>
+    <rect x="640" y="195" width="28" height="22" rx="2"/>
+    <rect x="532" y="226" width="28" height="22" rx="2"/>
+    <rect x="568" y="226" width="28" height="22" rx="2"/>
+    <rect x="604" y="226" width="28" height="22" rx="2"/>
+    <rect x="640" y="226" width="28" height="22" rx="2"/>
+    <rect x="532" y="257" width="28" height="22" rx="2"/>
+    <rect x="568" y="257" width="28" height="22" rx="2"/>
+    <rect x="604" y="257" width="28" height="22" rx="2"/>
+    <rect x="640" y="257" width="28" height="22" rx="2"/>
+    <rect x="532" y="288" width="28" height="22" rx="2"/>
+    <rect x="568" y="288" width="28" height="22" rx="2"/>
+    <rect x="604" y="288" width="28" height="22" rx="2"/>
+    <rect x="640" y="288" width="28" height="22" rx="2"/>
+    <rect x="532" y="319" width="28" height="22" rx="2"/>
+    <rect x="568" y="319" width="28" height="22" rx="2"/>
+    <rect x="604" y="319" width="28" height="22" rx="2"/>
+    <rect x="640" y="319" width="28" height="22" rx="2"/>
+    <rect x="532" y="350" width="28" height="22" rx="2"/>
+    <rect x="568" y="350" width="28" height="22" rx="2"/>
+    <rect x="604" y="350" width="28" height="22" rx="2"/>
+    <rect x="640" y="350" width="28" height="22" rx="2"/>
+  </g>
+  <!-- Antenna -->
+  <line x1="590" y1="175" x2="590" y2="145" stroke="#4b93ff" stroke-width="2"/>
+  <circle cx="590" cy="142" r="4" fill="#1d6cf0"/>
+  <circle cx="590" cy="142" r="7" fill="#1d6cf0" opacity="0.3" filter="url(#blur4)"/>
+
+  <!-- Left low building -->
+  <rect x="60" y="340" width="115" height="140" fill="url(#buildingGrad2)" rx="3"/>
+  <rect x="60" y="336" width="115" height="8" fill="#cba15a" opacity="0.5" rx="2"/>
+  <g fill="url(#windowBlue)" opacity="0.8">
+    <rect x="72" y="352" width="30" height="24" rx="2"/>
+    <rect x="112" y="352" width="30" height="24" rx="2"/>
+    <rect x="72" y="386" width="30" height="24" rx="2"/>
+    <rect x="112" y="386" width="30" height="24" rx="2"/>
+    <rect x="72" y="420" width="30" height="24" rx="2"/>
+    <rect x="112" y="420" width="30" height="24" rx="2"/>
+  </g>
+
+  <!-- Silos / tanks -->
+  <ellipse cx="770" cy="380" rx="28" ry="12" fill="#162133"/>
+  <rect x="742" y="300" width="56" height="80" fill="#12263d" rx="4"/>
+  <ellipse cx="770" cy="300" rx="28" ry="12" fill="#1d3a5e"/>
+  <line x1="770" y1="288" x2="770" y2="275" stroke="#4b93ff" stroke-width="2"/>
+
+  <ellipse cx="820" cy="390" rx="22" ry="9" fill="#162133"/>
+  <rect x="798" y="320" width="44" height="70" fill="#12263d" rx="4"/>
+  <ellipse cx="820" cy="320" rx="22" ry="9" fill="#1d3a5e"/>
+
+  <!-- Chimney stacks -->
+  <rect x="240" y="180" width="18" height="85" fill="#0f2035" rx="3"/>
+  <rect x="270" y="195" width="14" height="70" fill="#0f2035" rx="3"/>
+  <!-- Smoke -->
+  <ellipse cx="249" cy="175" rx="12" ry="18" fill="url(#smokeGrad)" filter="url(#blur4)"/>
+  <ellipse cx="249" cy="155" rx="9" ry="15" fill="#1d6cf0" opacity="0.15" filter="url(#blur4)"/>
+  <ellipse cx="277" cy="190" rx="10" ry="14" fill="url(#smokeGrad)" filter="url(#blur4)"/>
+
+  <!-- CRANE -->
+  <g stroke="url(#craneGrad)" fill="none">
+    <line x1="680" y1="480" x2="680" y2="200" stroke-width="5"/>
+    <line x1="680" y1="200" x2="780" y2="200" stroke-width="4"/>
+    <line x1="680" y1="200" x2="640" y2="230" stroke-width="3"/>
+    <!-- Crane cables -->
+    <line x1="730" y1="200" x2="730" y2="310" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="760" y1="200" x2="760" y2="290" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <!-- Hook -->
+    <rect x="720" y="310" width="22" height="14" rx="3" stroke-width="2"/>
+  </g>
+  <!-- Crane cabin -->
+  <rect x="668" y="340" width="24" height="18" fill="#1d3a5e" rx="2"/>
+  <rect x="670" y="342" width="9" height="14" fill="#4b93ff" opacity="0.5" rx="1"/>
+  <!-- Crane base -->
+  <polygon points="668,480 692,480 686,360 674,360" fill="#0f2035"/>
+
+  <!-- Road / ground markings -->
+  <rect x="0" y="480" width="900" height="2" fill="#1d6cf0" opacity="0.2"/>
+  <g stroke="#cba15a" stroke-width="2" stroke-dasharray="30,20" opacity="0.3">
+    <line x1="0" y1="510" x2="900" y2="510"/>
+  </g>
+
+  <!-- Fence -->
+  <g stroke="#1d2f45" stroke-width="1.5" fill="none">
+    <line x1="60" y1="480" x2="870" y2="480"/>
+    <line x1="80" y1="465" x2="80" y2="480"/>
+    <line x1="120" y1="465" x2="120" y2="480"/>
+    <line x1="160" y1="465" x2="160" y2="480"/>
+    <line x1="200" y1="465" x2="200" y2="480"/>
+    <line x1="240" y1="465" x2="240" y2="480"/>
+    <line x1="280" y1="465" x2="280" y2="480"/>
+    <line x1="320" y1="465" x2="320" y2="480"/>
+    <line x1="360" y1="465" x2="360" y2="480"/>
+    <line x1="400" y1="465" x2="400" y2="480"/>
+    <line x1="440" y1="465" x2="440" y2="480"/>
+    <line x1="480" y1="465" x2="480" y2="480"/>
+    <line x1="520" y1="465" x2="520" y2="480"/>
+    <line x1="560" y1="465" x2="560" y2="480"/>
+    <line x1="600" y1="465" x2="600" y2="480"/>
+    <line x1="640" y1="465" x2="640" y2="480"/>
+    <line x1="700" y1="465" x2="700" y2="480"/>
+    <line x1="740" y1="465" x2="740" y2="480"/>
+    <line x1="800" y1="465" x2="800" y2="480"/>
+    <line x1="840" y1="465" x2="840" y2="480"/>
+  </g>
+
+  <!-- Foreground glow reflection on ground -->
+  <ellipse cx="330" cy="485" rx="200" ry="25" fill="#1d6cf0" opacity="0.08" filter="url(#blur12)"/>
+  <ellipse cx="590" cy="490" rx="100" ry="15" fill="#cba15a" opacity="0.06" filter="url(#blur12)"/>
+
+  <!-- Ambient light streaks -->
+  <line x1="0" y1="200" x2="450" y2="480" stroke="#1d6cf0" stroke-width="0.5" opacity="0.08"/>
+  <line x1="900" y1="150" x2="450" y2="480" stroke="#cba15a" stroke-width="0.5" opacity="0.06"/>
+</svg>

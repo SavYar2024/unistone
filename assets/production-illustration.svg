@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340" fill="none">
+  <defs>
+    <radialGradient id="bg-bm" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0c1d34"/>
+      <stop offset="100%" stop-color="#060c17"/>
+    </radialGradient>
+    <linearGradient id="beltGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1d6cf0"/>
+      <stop offset="100%" stop-color="#cba15a"/>
+    </linearGradient>
+    <filter id="sf"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="sf2"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <rect width="500" height="340" fill="url(#bg-bm)" rx="20"/>
+
+  <!-- Glow sources -->
+  <ellipse cx="140" cy="180" rx="100" ry="70" fill="#1d6cf0" opacity="0.15" filter="url(#sf)"/>
+  <ellipse cx="360" cy="180" rx="100" ry="70" fill="#cba15a" opacity="0.12" filter="url(#sf)"/>
+
+  <!-- PRODUCTION LINE - CONVEYOR -->
+  <!-- Belt surface -->
+  <rect x="60" y="210" width="380" height="18" rx="9" fill="#0f2035" stroke="rgba(29,108,240,0.3)" stroke-width="1.5"/>
+  <rect x="60" y="210" width="380" height="18" rx="9" fill="url(#beltGrad)" opacity="0.12"/>
+  <!-- Belt links -->
+  <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+    <line x1="100" y1="210" x2="100" y2="228"/><line x1="140" y1="210" x2="140" y2="228"/>
+    <line x1="180" y1="210" x2="180" y2="228"/><line x1="220" y1="210" x2="220" y2="228"/>
+    <line x1="260" y1="210" x2="260" y2="228"/><line x1="300" y1="210" x2="300" y2="228"/>
+    <line x1="340" y1="210" x2="340" y2="228"/><line x1="380" y1="210" x2="380" y2="228"/>
+  </g>
+  <!-- Rollers -->
+  <circle cx="60" cy="219" r="12" fill="#132030" stroke="#1d6cf0" stroke-width="1.5"/>
+  <circle cx="440" cy="219" r="12" fill="#132030" stroke="#cba15a" stroke-width="1.5"/>
+  <circle cx="60" cy="219" r="5" fill="#1d6cf0" opacity="0.6"/>
+  <circle cx="440" cy="219" r="5" fill="#cba15a" opacity="0.6"/>
+
+  <!-- PRODUCTS on belt - bricks/blocks -->
+  <g>
+    <!-- Block 1 -->
+    <rect x="90" y="195" width="44" height="16" fill="#8b5e2a" rx="2"/>
+    <rect x="90" y="195" width="44" height="5" fill="rgba(255,255,255,0.08)" rx="2"/>
+    <g stroke="rgba(0,0,0,0.2)" stroke-width="0.5">
+      <line x1="112" y1="195" x2="112" y2="211"/><line x1="100" y1="201" x2="134" y2="201"/>
+    </g>
+    <!-- Block 2 -->
+    <rect x="160" y="195" width="44" height="16" fill="#7a5225" rx="2"/>
+    <rect x="160" y="195" width="44" height="5" fill="rgba(255,255,255,0.08)" rx="2"/>
+    <!-- Block 3 - concrete -->
+    <rect x="240" y="193" width="48" height="18" fill="#2d4a6a" rx="2"/>
+    <rect x="240" y="193" width="48" height="5" fill="rgba(255,255,255,0.1)" rx="2"/>
+    <!-- Block 4 -->
+    <rect x="315" y="195" width="44" height="16" fill="#7a5225" rx="2"/>
+    <rect x="315" y="195" width="44" height="5" fill="rgba(255,255,255,0.08)" rx="2"/>
+    <!-- Block 5 -->
+    <rect x="380" y="195" width="40" height="16" fill="#8b5e2a" rx="2"/>
+  </g>
+
+  <!-- MIXING MACHINE - left -->
+  <rect x="50" y="100" width="100" height="100" fill="#0d1e30" rx="8" stroke="rgba(29,108,240,0.3)" stroke-width="1.5"/>
+  <circle cx="100" cy="150" r="32" fill="#0a1828" stroke="#1d6cf0" stroke-width="1.5"/>
+  <circle cx="100" cy="150" r="22" fill="#061220"/>
+  <!-- Mixer blades -->
+  <g stroke="#1d6cf0" stroke-width="2" stroke-linecap="round">
+    <line x1="100" y1="135" x2="100" y2="128"/>
+    <line x1="115" y1="150" x2="122" y2="150"/>
+    <line x1="100" y1="165" x2="100" y2="172"/>
+    <line x1="85" y1="150" x2="78" y2="150"/>
+  </g>
+  <circle cx="100" cy="150" r="6" fill="#1d6cf0" opacity="0.7"/>
+  <circle cx="100" cy="150" r="10" fill="#1d6cf0" opacity="0.2" filter="url(#sf2)"/>
+  <!-- Feed hopper -->
+  <polygon points="75,100 125,100 115,82 85,82" fill="#142234" stroke="rgba(29,108,240,0.3)" stroke-width="1"/>
+  <rect x="90" y="70" width="20" height="14" fill="#0f1e2e"/>
+  <!-- Machine label -->
+  <text x="100" y="198" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#4b93ff" text-anchor="middle" letter-spacing="1">ЗМІШУВАЧ</text>
+
+  <!-- PRESS / MOLD MACHINE - center -->
+  <rect x="195" y="90" width="110" height="110" fill="#0d1e30" rx="8" stroke="rgba(203,161,90,0.3)" stroke-width="1.5"/>
+  <!-- Press top -->
+  <rect x="205" y="98" width="90" height="22" fill="#1d3050" rx="4"/>
+  <rect x="210" y="102" width="80" height="14" fill="#1d6cf0" opacity="0.2" rx="3"/>
+  <!-- Press ram -->
+  <rect x="230" y="120" width="40" height="30" fill="#1a3050" rx="3" stroke="rgba(203,161,90,0.25)" stroke-width="1"/>
+  <!-- Hydraulic cylinders -->
+  <rect x="222" y="108" width="8" height="40" fill="#142234" rx="2" stroke="rgba(203,161,90,0.2)" stroke-width="1"/>
+  <rect x="270" y="108" width="8" height="40" fill="#142234" rx="2" stroke="rgba(203,161,90,0.2)" stroke-width="1"/>
+  <!-- Mold base -->
+  <rect x="215" y="150" width="70" height="35" fill="#0a1828" rx="3" stroke="#cba15a" stroke-width="1" opacity="0.7"/>
+  <rect x="220" y="155" width="28" height="25" fill="#8b5e2a" opacity="0.6" rx="1"/>
+  <rect x="252" y="155" width="28" height="25" fill="#7a5225" opacity="0.5" rx="1"/>
+  <text x="250" y="200" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#f3d9a8" text-anchor="middle" letter-spacing="1">ПРЕС</text>
+
+  <!-- FURNACE / KILN - right -->
+  <rect x="355" y="95" width="100" height="105" fill="#0d1e30" rx="8" stroke="rgba(203,161,90,0.35)" stroke-width="1.5"/>
+  <!-- Furnace door circle -->
+  <circle cx="405" cy="147" r="30" fill="#0a1218" stroke="#cba15a" stroke-width="1.5" opacity="0.8"/>
+  <!-- Fire inside -->
+  <ellipse cx="405" cy="162" rx="14" ry="8" fill="#ff6a00" opacity="0.5" filter="url(#sf2)"/>
+  <ellipse cx="405" cy="158" rx="9" ry="10" fill="#ff9500" opacity="0.4" filter="url(#sf2)"/>
+  <ellipse cx="405" cy="152" rx="6" ry="8" fill="#ffcc00" opacity="0.35" filter="url(#sf2)"/>
+  <!-- Temp gauge -->
+  <rect x="361" y="100" width="20" height="40" fill="#071420" rx="4" stroke="rgba(203,161,90,0.2)" stroke-width="1"/>
+  <rect x="364" y="128" width="14" height="9" fill="#ff4400" opacity="0.7" rx="2"/>
+  <text x="371" y="148" font-family="Montserrat,sans-serif" font-size="6" fill="#cba15a" text-anchor="middle">°C</text>
+  <!-- Chimney -->
+  <rect x="425" y="65" width="12" height="33" fill="#0e1e2e" rx="3" stroke="rgba(203,161,90,0.2)" stroke-width="1"/>
+  <ellipse cx="431" cy="62" rx="8" ry="12" fill="#cba15a" opacity="0.12" filter="url(#sf2)"/>
+  <text x="405" y="200" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#f3d9a8" text-anchor="middle" letter-spacing="1">ПІЧ ВИПАЛУ</text>
+
+  <!-- Control panel -->
+  <rect x="195" y="260" width="110" height="60" fill="#0a1828" rx="8" stroke="rgba(29,108,240,0.25)" stroke-width="1"/>
+  <rect x="203" y="267" width="94" height="46" rx="5" fill="#061218"/>
+  <!-- Screen -->
+  <rect x="207" y="271" width="60" height="34" rx="3" fill="#0d2040" stroke="rgba(29,108,240,0.3)" stroke-width="0.5"/>
+  <text x="237" y="283" font-family="Montserrat,sans-serif" font-size="6" fill="#4b93ff" text-anchor="middle">КОНТРОЛЬ</text>
+  <!-- Graph lines on screen -->
+  <polyline points="210,298 220,292 230,295 240,288 250,291 260,285 265,289" stroke="#1d6cf0" stroke-width="1" fill="none"/>
+  <!-- Buttons -->
+  <circle cx="275" cy="278" r="4" fill="#1d6cf0" opacity="0.8"/>
+  <circle cx="275" cy="292" r="4" fill="#cba15a" opacity="0.7"/>
+  <circle cx="275" cy="306" r="4" fill="#22c55e" opacity="0.7"/>
+
+  <!-- Pipes -->
+  <g stroke="rgba(29,108,240,0.3)" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M150,135 C170,135 180,120 195,120"/>
+    <path d="M305,135 C330,135 340,120 355,120"/>
+  </g>
+  <g stroke="rgba(203,161,90,0.2)" stroke-width="2" fill="none">
+    <path d="M100,200 L100,230"/>
+    <path d="M250,200 L250,230"/>
+    <path d="M405,200 L405,230"/>
+  </g>
+
+  <!-- Quality badge -->
+  <rect x="370" y="270" width="100" height="50" rx="10" fill="rgba(34,197,94,0.1)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+  <text x="420" y="289" font-family="Montserrat,sans-serif" font-size="9" font-weight="800" fill="#22c55e" text-anchor="middle">✓ ЯКІСТЬ</text>
+  <text x="420" y="305" font-family="Montserrat,sans-serif" font-size="8" fill="#a8f0bf" text-anchor="middle" opacity="0.8">ISO 9001</text>
+  <text x="420" y="316" font-family="Montserrat,sans-serif" font-size="7" fill="#a8f0bf" text-anchor="middle" opacity="0.6">Відповідність</text>
+</svg>

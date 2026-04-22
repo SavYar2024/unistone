@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unistone.Capital — CRM Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #1a1e23;
+  --dark-2: #12151a;
+  --dark-3: #0d1016;
+  --blue: #1d6cf0;
+  --blue-dim: rgba(29,108,240,0.12);
+  --gold: #cba15a;
+  --gold-dim: rgba(203,161,90,0.12);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.12);
+  --orange: #f97316;
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --sidebar-w: 240px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--dark-3);color:var(--text);min-height:100vh;display:flex;}
+
+/* ─── LOGIN ─── */
+#login-screen {
+  position:fixed;inset:0;z-index:1000;
+  background:var(--dark-3);
+  display:flex;align-items:center;justify-content:center;
+}
+.login-card {
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:20px;padding:48px;width:360px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.login-logo { text-align:center;margin-bottom:32px; }
+.login-logo img { height:48px; }
+.login-title { font-size:20px;font-weight:800;text-align:center;margin-bottom:4px; }
+.login-sub { font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:28px; }
+.login-input {
+  width:100%;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);border-radius:8px;
+  padding:12px 14px;color:var(--text);font-family:'Montserrat',sans-serif;
+  font-size:14px;margin-bottom:12px;outline:none;transition:.2s;
+}
+.login-input:focus { border-color:var(--blue); }
+.login-btn {
+  width:100%;padding:13px;background:linear-gradient(135deg,var(--blue),#1558c0);
+  border:none;border-radius:8px;color:#fff;font-family:'Montserrat',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.03em;transition:.2s;
+}
+.login-btn:hover { filter:brightness(1.1); }
+.login-err { color:var(--red);font-size:12px;text-align:center;margin-top:8px;display:none; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width:var(--sidebar-w);min-height:100vh;
+  background:var(--dark-2);border-right:1px solid var(--glass-border);
+  position:fixed;left:0;top:0;bottom:0;
+  display:flex;flex-direction:column;z-index:50;
+  transition:transform .3s;
+}
+.sidebar-logo {
+  padding:20px 16px;border-bottom:1px solid var(--glass-border);
+}
+.sidebar-logo img { height:38px; }
+.sidebar-nav { flex:1;padding:16px 8px;overflow-y:auto; }
+.nav-section-label {
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-muted);padding:0 8px;margin:16px 0 8px;
+}
+.nav-item {
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;margin-bottom:2px;
+  cursor:pointer;transition:all .2s;font-size:13px;font-weight:500;
+  color:var(--text-muted);text-decoration:none;border:none;background:none;width:100%;text-align:left;
+  font-family:'Montserrat',sans-serif;
+}
+.nav-item:hover { background:var(--glass);color:var(--text); }
+.nav-item.active { background:var(--blue-dim);color:var(--blue); }
+.nav-item .badge {
+  margin-left:auto;background:var(--red);border-radius:10px;
+  padding:2px 7px;font-size:10px;font-weight:700;color:#fff;
+}
+.sidebar-footer {
+  padding:16px;border-top:1px solid var(--glass-border);
+  font-size:12px;color:var(--text-muted);
+}
+
+/* ─── MAIN ─── */
+.main {
+  margin-left:var(--sidebar-w);flex:1;min-height:100vh;
+  display:flex;flex-direction:column;
+}
+.topbar {
+  height:60px;padding:0 24px;
+  background:rgba(13,16,22,0.9);
+  border-bottom:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);
+}
+.topbar-title { font-size:16px;font-weight:700; }
+.topbar-actions { display:flex;gap:10px;align-items:center; }
+.topbar-btn {
+  padding:7px 14px;border-radius:6px;font-size:12px;font-weight:600;
+  cursor:pointer;border:none;font-family:'Montserrat',sans-serif;transition:.2s;
+}
+.topbar-btn.primary { background:var(--blue);color:#fff; }
+.topbar-btn.ghost { background:var(--glass);color:var(--text-muted);border:1px solid var(--glass-border); }
+.topbar-btn:hover { filter:brightness(1.15); }
+.page-content { padding:24px;flex:1; }
+
+/* ─── DASHBOARD ─── */
+.metrics-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px; }
+.metric-card {
+  background:var(--dark-2);border:1px solid var(--glass-border);border-radius:12px;
+  padding:20px;position:relative;overflow:hidden;transition:.2s;
+}
+.metric-card:hover { border-color:rgba(255,255,255,0.15); }
+.metric-card::after {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+}
+.metric-card.blue::after { background:var(--blue); }
+.metric-card.gold::after { background:var(--gold); }
+.metric-card.green::after { background:var(--green); }
+.metric-card.red::after { background:var(--red); }
+.metric-icon { font-size:22px;margin-bottom:12px; }
+.metric-val { font-size:28px;font-weight:800;margin-bottom:4px; }
+.metric-val.blue { color:var(--blue); }
+.metric-val.gold { color:var(--gold); }
+.metric-val.green { color:var(--green); }
+.metric-val.red { color:var(--red); }
+.metric-label { font-size:12px;color:var(--text-muted);font-weight:500; }
+
+/* charts row */
+.charts-row { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px; }
+.chart-card {
+  background:var(--dark-2);border:1px solid var(--glass-border);border-radius:12px;padding:20px;
+}
+.chart-title { font-size:14px;font-weight:700;margin-bottom:16px; }
+.bar-chart { display:flex;align-items:flex-end;gap:8px;height:100px; }
+.bar-item { flex:1;display:flex;flex-direction:column;align-items:center;gap:4px; }
+.bar { border-radius:4px 4px 0 0;width:100%;transition:height .5s;min-height:4px; }
+.bar-label { font-size:10px;color:var(--text-muted); }
+.pie-wrapper { display:flex;gap:24px;align-items:center; }
+.pie-legend { display:flex;flex-direction:column;gap:8px; }
+.pie-leg-item { display:flex;align-items:center;gap:8px;font-size:12px; }
+.pie-dot { width:10px;height:10px;border-radius:50%;flex-shrink:0; }
+
+/* ─── LEADS TABLE ─── */
+.section-title-row {
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;
+}
+.section-title-row h2 { font-size:16px;font-weight:700; }
+.filters { display:flex;gap:8px;flex-wrap:wrap; }
+.filter-btn {
+  padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;
+  cursor:pointer;border:1px solid var(--glass-border);background:var(--glass);
+  color:var(--text-muted);font-family:'Montserrat',sans-serif;transition:.2s;
+}
+.filter-btn.active { background:var(--blue-dim);border-color:var(--blue);color:var(--blue); }
+.filter-btn:hover { color:var(--text); }
+.search-input {
+  padding:8px 12px;border-radius:6px;border:1px solid var(--glass-border);
+  background:var(--glass);color:var(--text);font-family:'Montserrat',sans-serif;
+  font-size:13px;outline:none;width:200px;
+}
+.search-input:focus { border-color:var(--blue); }
+.table-wrap { background:var(--dark-2);border:1px solid var(--glass-border);border-radius:12px;overflow:hidden; }
+table { width:100%;border-collapse:collapse; }
+thead tr { background:rgba(255,255,255,0.03);border-bottom:1px solid var(--glass-border); }
+th {
+  padding:12px 16px;font-size:11px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);text-align:left;
+}
+tbody tr {
+  border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:.15s;
+}
+tbody tr:hover { background:rgba(255,255,255,0.03); }
+tbody tr:last-child { border-bottom:none; }
+td { padding:12px 16px;font-size:13px; }
+.badge-type {
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;
+}
+.badge-type.buy { background:var(--blue-dim);color:var(--blue); }
+.badge-type.sell { background:var(--gold-dim);color:var(--gold); }
+.badge-status {
+  padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;
+  display:inline-block;
+}
+.badge-status.new { background:var(--blue-dim);color:var(--blue); }
+.badge-status.inwork { background:var(--gold-dim);color:var(--gold); }
+.badge-status.done { background:var(--green-dim);color:var(--green); }
+.badge-status.rejected { background:var(--red-dim);color:var(--red); }
+.action-btns { display:flex;gap:6px; }
+.act-btn {
+  padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;
+  cursor:pointer;border:none;font-family:'Montserrat',sans-serif;transition:.15s;
+}
+.act-btn.view { background:var(--blue-dim);color:var(--blue); }
+.act-btn.inwork { background:var(--gold-dim);color:var(--gold); }
+.act-btn.done { background:var(--green-dim);color:var(--green); }
+.act-btn.del { background:var(--red-dim);color:var(--red); }
+.act-btn:hover { filter:brightness(1.2); }
+.empty-state {
+  text-align:center;padding:60px 20px;color:var(--text-muted);
+}
+.empty-state .icon { font-size:48px;margin-bottom:16px; }
+.empty-state p { font-size:14px; }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:var(--dark-2);border:1px solid var(--glass-border);
+  border-radius:16px;padding:32px;width:100%;max-width:520px;
+  max-height:90vh;overflow-y:auto;
+}
+.modal-title { font-size:18px;font-weight:800;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between; }
+.modal-close { cursor:pointer;color:var(--text-muted);font-size:20px;border:none;background:none;color:var(--text-muted); }
+.modal-row { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px; }
+.modal-field label { font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;display:block; }
+.modal-field .val { font-size:14px;color:var(--text);font-weight:500; }
+.modal-note {
+  width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);
+  border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Montserrat',sans-serif;
+  font-size:13px;resize:vertical;min-height:80px;margin-top:4px;outline:none;
+}
+.modal-note:focus { border-color:var(--blue); }
+.status-select {
+  width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);
+  border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Montserrat',sans-serif;
+  font-size:13px;cursor:pointer;outline:none;
+}
+.modal-actions { display:flex;gap:10px;margin-top:20px; }
+.modal-btn {
+  flex:1;padding:11px;border-radius:8px;font-family:'Montserrat',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;border:none;transition:.2s;letter-spacing:.03em;
+}
+.modal-btn.save { background:var(--blue);color:#fff; }
+.modal-btn.cancel { background:var(--glass);color:var(--text-muted);border:1px solid var(--glass-border); }
+.modal-btn:hover { filter:brightness(1.1); }
+
+/* ─── SETTINGS ─── */
+.settings-grid { display:grid;gap:16px; }
+.settings-card { background:var(--dark-2);border:1px solid var(--glass-border);border-radius:12px;padding:24px; }
+.settings-card h3 { font-size:15px;font-weight:700;margin-bottom:16px;color:var(--gold); }
+.settings-row { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px; }
+.settings-field label { font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px;display:block; }
+.settings-input {
+  width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);
+  border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Montserrat',sans-serif;
+  font-size:13px;outline:none;transition:.2s;
+}
+.settings-input:focus { border-color:var(--blue); }
+.save-btn {
+  padding:10px 24px;background:var(--blue);border:none;border-radius:8px;
+  color:#fff;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.2s;
+}
+.save-btn:hover { filter:brightness(1.1); }
+.export-btn {
+  padding:10px 24px;background:var(--glass);border:1px solid var(--glass-border);border-radius:8px;
+  color:var(--text);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:.2s;
+}
+.export-btn:hover { background:var(--glass-hover);color:var(--gold); }
+
+/* ─── PAGES ─── */
+.page { display:none; }
+.page.active { display:block; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .metrics-grid { grid-template-columns:repeat(2,1fr); }
+  .charts-row { grid-template-columns:1fr; }
+}
+@media(max-width:768px){
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; }
+  .mob-toggle {
+    display:flex;width:36px;height:36px;border-radius:8px;
+    background:var(--glass);border:1px solid var(--glass-border);
+    align-items:center;justify-content:center;cursor:pointer;font-size:18px;
+  }
+  .metrics-grid { grid-template-columns:1fr 1fr; }
+  .modal-row { grid-template-columns:1fr; }
+}
+@media(max-width:480px){
+  .metrics-grid { grid-template-columns:1fr; }
+  .page-content { padding:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo"><img src="../assets/logo.svg" alt="Unistone Capital"></div>
+    <div class="login-title">Admin Panel</div>
+    <div class="login-sub">Unistone.Capital CRM</div>
+    <input class="login-input" type="text" id="login-user" placeholder="Логін">
+    <input class="login-input" type="password" id="login-pass" placeholder="Пароль">
+    <button class="login-btn" onclick="doLogin()">Увійти</button>
+    <div class="login-err" id="login-err">Невірний логін або пароль</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="modal-title-text">Деталі заявки</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><img src="../assets/logo.svg" alt="Unistone Capital"></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Головне</div>
+    <button class="nav-item active" onclick="showPage('dashboard')">📊 Дашборд</button>
+    <button class="nav-item" onclick="showPage('leads')">📋 Всі заявки <span class="badge" id="new-badge">0</span></button>
+    <div class="nav-section-label">Заявки</div>
+    <button class="nav-item" onclick="showPage('buy')">🏭 Купівля</button>
+    <button class="nav-item" onclick="showPage('sell')">💼 Продаж</button>
+    <div class="nav-section-label">Система</div>
+    <button class="nav-item" onclick="showPage('settings')">⚙️ Налаштування</button>
+    <button class="nav-item" onclick="logout()">🚪 Вийти</button>
+  </nav>
+  <div class="sidebar-footer">v1.0 · Unistone.Capital</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="mob-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none" id="mob-btn">☰</button>
+      <span class="topbar-title" id="page-title">Дашборд</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="topbar-btn ghost" onclick="exportCSV()">⬇ Експорт CSV</button>
+      <button class="topbar-btn primary" onclick="location.href='../index.html'">🌐 На сайт</button>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="metrics-grid">
+        <div class="metric-card blue">
+          <div class="metric-icon">📥</div>
+          <div class="metric-val blue" id="m-total">0</div>
+          <div class="metric-label">Всього заявок</div>
+        </div>
+        <div class="metric-card gold">
+          <div class="metric-icon">🆕</div>
+          <div class="metric-val gold" id="m-new">0</div>
+          <div class="metric-label">Нові (не оброблені)</div>
+        </div>
+        <div class="metric-card green">
+          <div class="metric-icon">✅</div>
+          <div class="metric-val green" id="m-done">0</div>
+          <div class="metric-label">Закрито успішно</div>
+        </div>
+        <div class="metric-card red">
+          <div class="metric-icon">🏭</div>
+          <div class="metric-val" style="color:var(--orange)" id="m-inwork">0</div>
+          <div class="metric-label">В роботі</div>
+        </div>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">Заявки за останні 7 днів</div>
+          <div class="bar-chart" id="bar-chart"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Структура заявок</div>
+          <div class="pie-wrapper">
+            <svg width="90" height="90" viewBox="0 0 36 36" id="pie-svg">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--blue)" stroke-width="3" stroke-dasharray="50 50" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--gold)" stroke-width="3" stroke-dasharray="50 50" stroke-dashoffset="-25" transform="rotate(-90 18 18)"/>
+            </svg>
+            <div class="pie-legend" id="pie-legend"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title-row">
+        <h2>Нові заявки (останні 5)</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Ім'я</th><th>Тип</th><th>Телефон</th><th>Бюджет/Ціна</th><th>Дата</th><th>Дії</th>
+          </tr></thead>
+          <tbody id="recent-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LEADS (ALL) -->
+    <div class="page" id="page-leads">
+      <div class="section-title-row">
+        <h2>Всі заявки</h2>
+        <div class="filters">
+          <input class="search-input" id="search-all" placeholder="🔍 Пошук..." oninput="renderTable('leads')">
+          <button class="filter-btn active" onclick="setFilter('leads','all',this)">Всі</button>
+          <button class="filter-btn" onclick="setFilter('leads','new',this)">Нові</button>
+          <button class="filter-btn" onclick="setFilter('leads','inwork',this)">В роботі</button>
+          <button class="filter-btn" onclick="setFilter('leads','done',this)">Закрито</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ім'я</th><th>Тип</th><th>Телефон</th><th>Email</th><th>Бюджет</th><th>Статус</th><th>Дата</th><th>Дії</th></tr></thead>
+          <tbody id="tbody-leads"></tbody>
+        </table>
+        <div class="empty-state" id="empty-leads" style="display:none">
+          <div class="icon">📭</div><p>Заявок поки немає</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUY -->
+    <div class="page" id="page-buy">
+      <div class="section-title-row">
+        <h2>🏭 Заявки на купівлю</h2>
+        <div class="filters">
+          <input class="search-input" id="search-buy" placeholder="🔍 Пошук..." oninput="renderTable('buy')">
+          <button class="filter-btn active" onclick="setFilter('buy','all',this)">Всі</button>
+          <button class="filter-btn" onclick="setFilter('buy','new',this)">Нові</button>
+          <button class="filter-btn" onclick="setFilter('buy','inwork',this)">В роботі</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ім'я</th><th>Телефон</th><th>Email</th><th>Тип активу</th><th>Бюджет</th><th>Статус</th><th>Дата</th><th>Дії</th></tr></thead>
+          <tbody id="tbody-buy"></tbody>
+        </table>
+        <div class="empty-state" id="empty-buy" style="display:none"><div class="icon">🏭</div><p>Заявок на купівлю немає</p></div>
+      </div>
+    </div>
+
+    <!-- SELL -->
+    <div class="page" id="page-sell">
+      <div class="section-title-row">
+        <h2>💼 Заявки на продаж</h2>
+        <div class="filters">
+          <input class="search-input" id="search-sell" placeholder="🔍 Пошук..." oninput="renderTable('sell')">
+          <button class="filter-btn active" onclick="setFilter('sell','all',this)">Всі</button>
+          <button class="filter-btn" onclick="setFilter('sell','new',this)">Нові</button>
+          <button class="filter-btn" onclick="setFilter('sell','inwork',this)">В роботі</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ім'я</th><th>Телефон</th><th>Email</th><th>Тип активу</th><th>Ціна</th><th>Регіон</th><th>Статус</th><th>Дата</th><th>Дії</th></tr></thead>
+          <tbody id="tbody-sell"></tbody>
+        </table>
+        <div class="empty-state" id="empty-sell" style="display:none"><div class="icon">💼</div><p>Заявок на продаж немає</p></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>🤖 Telegram-сповіщення</h3>
+          <div class="settings-row">
+            <div class="settings-field">
+              <label>Bot Token</label>
+              <input class="settings-input" id="tg-token" placeholder="123456:ABC-DEFxxxx">
+            </div>
+            <div class="settings-field">
+              <label>Chat ID</label>
+              <input class="settings-input" id="tg-chatid" placeholder="-100123456789">
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:4px">
+            <button class="save-btn" onclick="saveTgSettings()">Зберегти</button>
+            <button class="export-btn" onclick="testTelegram()">Тест Telegram</button>
+          </div>
+          <div id="tg-status" style="margin-top:10px;font-size:13px;color:var(--text-muted)"></div>
+        </div>
+
+        <div class="settings-card">
+          <h3>🔐 Зміна паролю</h3>
+          <div class="settings-row">
+            <div class="settings-field">
+              <label>Новий логін</label>
+              <input class="settings-input" id="new-user" placeholder="admin">
+            </div>
+            <div class="settings-field">
+              <label>Новий пароль</label>
+              <input class="settings-input" type="password" id="new-pass" placeholder="••••••••">
+            </div>
+          </div>
+          <button class="save-btn" onclick="changePass()">Змінити</button>
+        </div>
+
+        <div class="settings-card">
+          <h3>📊 Дані та Експорт</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Управління даними заявок</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="save-btn" onclick="exportCSV()">⬇ Завантажити CSV</button>
+            <button class="export-btn" onclick="addDemoData()">+ Додати тестові дані</button>
+            <button class="export-btn" style="color:var(--red)" onclick="clearAll()">🗑 Очистити всі заявки</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─── AUTH ───
+const DEFAULT_CREDS = { user: 'admin', pass: 'unistone2025' };
+
+function doLogin() {
+  const u = document.getElementById('login-user').value;
+  const p = document.getElementById('login-pass').value;
+  const saved = JSON.parse(localStorage.getItem('unistone_creds') || 'null') || DEFAULT_CREDS;
+  if (u === saved.user && p === saved.pass) {
+    document.getElementById('login-screen').style.display = 'none';
+    init();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+function logout() {
+  document.getElementById('login-screen').style.display = 'flex';
+}
+document.getElementById('login-user').addEventListener('keydown', e => e.key==='Enter' && doLogin());
+document.getElementById('login-pass').addEventListener('keydown', e => e.key==='Enter' && doLogin());
+
+// ─── LEADS DATA ───
+function getLeads() { return JSON.parse(localStorage.getItem('unistone_leads') || '[]'); }
+function saveLeads(leads) { localStorage.setItem('unistone_leads', JSON.stringify(leads)); }
+
+// ─── PAGE NAV ───
+let currentPage = 'dashboard';
+const filters = { leads: 'all', buy: 'all', sell: 'all' };
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  event.currentTarget && event.currentTarget.classList.add('active');
+  currentPage = page;
+  const titles = { dashboard:'Дашборд', leads:'Всі заявки', buy:'Купівля', sell:'Продаж', settings:'Налаштування' };
+  document.getElementById('page-title').textContent = titles[page] || '';
+  if (page === 'dashboard') renderDashboard();
+  else if (['leads','buy','sell'].includes(page)) renderTable(page);
+  else if (page === 'settings') loadSettings();
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// ─── DASHBOARD ───
+function renderDashboard() {
+  const leads = getLeads();
+  const newL = leads.filter(l => l.status === 'new');
+  const doneL = leads.filter(l => l.status === 'done');
+  const inworkL = leads.filter(l => l.status === 'inwork');
+  document.getElementById('m-total').textContent = leads.length;
+  document.getElementById('m-new').textContent = newL.length;
+  document.getElementById('m-done').textContent = doneL.length;
+  document.getElementById('m-inwork').textContent = inworkL.length;
+  document.getElementById('new-badge').textContent = newL.length;
+
+  // Bar chart - last 7 days
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = d.toLocaleDateString('uk-UA', { day:'2-digit', month:'2-digit' });
+    const count = leads.filter(l => {
+      const ld = new Date(l.timestamp);
+      return ld.toLocaleDateString('uk-UA', { day:'2-digit', month:'2-digit' }) === key;
+    }).length;
+    days.push({ key, count });
+  }
+  const maxD = Math.max(...days.map(d => d.count), 1);
+  document.getElementById('bar-chart').innerHTML = days.map(d => `
+    <div class="bar-item">
+      <div class="bar" style="height:${Math.max(d.count/maxD*80,4)}px;background:${d.count?'var(--blue)':'var(--glass-border)'}"></div>
+      <div class="bar-label">${d.key}</div>
+    </div>`).join('');
+
+  // Pie
+  const buyCount = leads.filter(l => l.type === 'buy').length;
+  const sellCount = leads.filter(l => l.type === 'sell').length;
+  const total = buyCount + sellCount || 1;
+  const buyPct = Math.round(buyCount/total*100);
+  const sellPct = 100 - buyPct;
+  const circ = 100;
+  const buyDash = buyPct;
+  document.getElementById('pie-svg').innerHTML = `
+    <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--dark-2)" stroke-width="3"/>
+    <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--blue)" stroke-width="3"
+      stroke-dasharray="${buyDash} ${100-buyDash}" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+    <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--gold)" stroke-width="3"
+      stroke-dasharray="${100-buyDash} ${buyDash}" stroke-dashoffset="${25-buyDash}" transform="rotate(-90 18 18)"/>`;
+  document.getElementById('pie-legend').innerHTML = `
+    <div class="pie-leg-item"><div class="pie-dot" style="background:var(--blue)"></div> Купівля — ${buyCount} (${buyPct}%)</div>
+    <div class="pie-leg-item"><div class="pie-dot" style="background:var(--gold)"></div> Продаж — ${sellCount} (${sellPct}%)</div>`;
+
+  // Recent
+  const recent = [...leads].reverse().slice(0, 5);
+  document.getElementById('recent-tbody').innerHTML = recent.length
+    ? recent.map(l => rowHtml(l, 'compact')).join('')
+    : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">Заявок поки немає</td></tr>';
+}
+
+// ─── TABLE RENDER ───
+function renderTable(page) {
+  const leads = getLeads();
+  const filter = filters[page] || 'all';
+  const searchEl = document.getElementById('search-' + page);
+  const search = searchEl ? searchEl.value.toLowerCase() : '';
+
+  let filtered = leads.filter(l => {
+    const typeMatch = page === 'leads' ? true : l.type === page;
+    const statusMatch = filter === 'all' || l.status === filter;
+    const searchMatch = !search ||
+      (l.name || '').toLowerCase().includes(search) ||
+      (l.phone || '').toLowerCase().includes(search) ||
+      (l.email || '').toLowerCase().includes(search);
+    return typeMatch && statusMatch && searchMatch;
+  }).reverse();
+
+  const tbody = document.getElementById('tbody-' + page);
+  const empty = document.getElementById('empty-' + page);
+  tbody.innerHTML = filtered.map(l => rowHtml(l, page)).join('');
+  if (empty) empty.style.display = filtered.length ? 'none' : 'block';
+}
+
+function rowHtml(l, page) {
+  const date = l.timestamp ? new Date(l.timestamp).toLocaleDateString('uk-UA') : '—';
+  const typeBadge = `<span class="badge-type ${l.type}">${l.type==='buy'?'🏭 Купівля':'💼 Продаж'}</span>`;
+  const statusBadge = `<span class="badge-status ${l.status||'new'}">${{new:'Новий',inwork:'В роботі',done:'Закрито',rejected:'Відмова'}[l.status||'new']}</span>`;
+  const actions = `<div class="action-btns">
+    <button class="act-btn view" onclick="openModal(${l.id})">👁</button>
+    <button class="act-btn inwork" onclick="setStatus(${l.id},'inwork')">▶</button>
+    <button class="act-btn done" onclick="setStatus(${l.id},'done')">✓</button>
+    <button class="act-btn del" onclick="deleteLead(${l.id})">✕</button>
+  </div>`;
+
+  if (page === 'compact') {
+    return `<tr onclick="openModal(${l.id})">
+      <td><b>${l.name||'—'}</b></td>
+      <td>${typeBadge}</td>
+      <td>${l.phone||'—'}</td>
+      <td>${l.budget||l.price||'—'}</td>
+      <td>${date}</td>
+      <td>${actions}</td>
+    </tr>`;
+  }
+  if (page === 'buy') {
+    return `<tr>
+      <td><b>${l.name||'—'}</b></td>
+      <td>${l.phone||'—'}</td>
+      <td>${l.email||'—'}</td>
+      <td>${l.type_field||'—'}</td>
+      <td>${l.budget||'—'}</td>
+      <td>${statusBadge}</td>
+      <td>${date}</td>
+      <td>${actions}</td>
+    </tr>`;
+  }
+  if (page === 'sell') {
+    return `<tr>
+      <td><b>${l.name||'—'}</b></td>
+      <td>${l.phone||'—'}</td>
+      <td>${l.email||'—'}</td>
+      <td>${l.type_field||'—'}</td>
+      <td>${l.price||'—'}</td>
+      <td>${l.region||'—'}</td>
+      <td>${statusBadge}</td>
+      <td>${date}</td>
+      <td>${actions}</td>
+    </tr>`;
+  }
+  // leads (all)
+  return `<tr>
+    <td><b>${l.name||'—'}</b></td>
+    <td>${typeBadge}</td>
+    <td>${l.phone||'—'}</td>
+    <td>${l.email||'—'}</td>
+    <td>${l.budget||l.price||'—'}</td>
+    <td>${statusBadge}</td>
+    <td>${date}</td>
+    <td>${actions}</td>
+  </tr>`;
+}
+
+function setFilter(page, val, btn) {
+  filters[page] = val;
+  btn.closest('.filters').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable(page);
+}
+
+// ─── CRUD ───
+function setStatus(id, status) {
+  const leads = getLeads();
+  const idx = leads.findIndex(l => l.id == id);
+  if (idx > -1) { leads[idx].status = status; saveLeads(leads); }
+  renderDashboard();
+  ['leads','buy','sell'].forEach(p => { if (document.getElementById('page-'+p).classList.contains('active')) renderTable(p); });
+  document.getElementById('new-badge').textContent = leads.filter(l=>l.status==='new').length;
+}
+
+function deleteLead(id) {
+  if (!confirm('Видалити заявку?')) return;
+  const leads = getLeads().filter(l => l.id != id);
+  saveLeads(leads);
+  renderDashboard();
+  ['leads','buy','sell'].forEach(p => { if (document.getElementById('page-'+p).classList.contains('active')) renderTable(p); });
+}
+
+// ─── MODAL ───
+function openModal(id) {
+  const leads = getLeads();
+  const l = leads.find(lx => lx.id == id);
+  if (!l) return;
+  const date = l.timestamp ? new Date(l.timestamp).toLocaleString('uk-UA') : '—';
+  document.getElementById('modal-title-text').textContent = l.type === 'buy' ? '🏭 Заявка на купівлю' : '💼 Заявка на продаж';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-row">
+      <div class="modal-field"><label>Ім'я</label><div class="val">${l.name||'—'}</div></div>
+      <div class="modal-field"><label>Телефон</label><div class="val"><a href="tel:${l.phone}" style="color:var(--blue)">${l.phone||'—'}</a></div></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><label>Email</label><div class="val">${l.email ? `<a href="mailto:${l.email}" style="color:var(--blue)">${l.email}</a>` : '—'}</div></div>
+      <div class="modal-field"><label>Тип активу</label><div class="val">${l.type_field||'—'}</div></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><label>${l.type==='buy'?'Бюджет':'Ціна'}</label><div class="val">${l.budget||l.price||'—'}</div></div>
+      <div class="modal-field"><label>Регіон</label><div class="val">${l.region||'—'}</div></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><label>Дата подачі</label><div class="val">${date}</div></div>
+      <div class="modal-field"><label>Мова</label><div class="val">${l.lang === 'uk' ? '🇺🇦 Українська' : '🇬🇧 English'}</div></div>
+    </div>
+    <div class="modal-field" style="margin-bottom:12px">
+      <label>Коментар клієнта</label>
+      <div class="val">${l.message||'—'}</div>
+    </div>
+    <div class="modal-field" style="margin-bottom:12px">
+      <label>Статус</label>
+      <select class="status-select" id="modal-status">
+        <option value="new" ${l.status==='new'?'selected':''}>🔵 Новий</option>
+        <option value="inwork" ${l.status==='inwork'?'selected':''}>🟡 В роботі</option>
+        <option value="done" ${l.status==='done'?'selected':''}>🟢 Закрито</option>
+        <option value="rejected" ${l.status==='rejected'?'selected':''}>🔴 Відмова</option>
+      </select>
+    </div>
+    <div class="modal-field" style="margin-bottom:12px">
+      <label>Нотатка менеджера</label>
+      <textarea class="modal-note" id="modal-note">${l.note||''}</textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn save" onclick="saveModal(${id})">💾 Зберегти</button>
+      <button class="modal-btn cancel" onclick="closeModal()">Скасувати</button>
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function saveModal(id) {
+  const leads = getLeads();
+  const idx = leads.findIndex(l => l.id == id);
+  if (idx > -1) {
+    leads[idx].status = document.getElementById('modal-status').value;
+    leads[idx].note = document.getElementById('modal-note').value;
+    saveLeads(leads);
+  }
+  closeModal();
+  renderDashboard();
+  ['leads','buy','sell'].forEach(p => { if (document.getElementById('page-'+p).classList.contains('active')) renderTable(p); });
+  document.getElementById('new-badge').textContent = leads.filter(l=>l.status==='new').length;
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
+
+// ─── SETTINGS ───
+function loadSettings() {
+  const cfg = JSON.parse(localStorage.getItem('unistone_tg') || '{}');
+  document.getElementById('tg-token').value = cfg.token || '';
+  document.getElementById('tg-chatid').value = cfg.chatId || '';
+}
+function saveTgSettings() {
+  const cfg = { token: document.getElementById('tg-token').value, chatId: document.getElementById('tg-chatid').value };
+  localStorage.setItem('unistone_tg', JSON.stringify(cfg));
+  document.getElementById('tg-status').textContent = '✓ Збережено';
+}
+async function testTelegram() {
+  const cfg = JSON.parse(localStorage.getItem('unistone_tg') || '{}');
+  if (!cfg.token || !cfg.chatId) { alert('Спочатку збережіть токен та Chat ID'); return; }
+  const el = document.getElementById('tg-status');
+  el.textContent = 'Відправляємо тест...';
+  try {
+    const r = await fetch(`https://api.telegram.org/bot${cfg.token}/sendMessage`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ chat_id: cfg.chatId, text: '✅ Unistone.Capital CRM — тестове сповіщення успішне!' })
+    });
+    const d = await r.json();
+    el.textContent = d.ok ? '✓ Успішно надіслано!' : '✗ Помилка: ' + d.description;
+    el.style.color = d.ok ? 'var(--green)' : 'var(--red)';
+  } catch(e) { el.textContent = '✗ Помилка з\'єднання'; el.style.color = 'var(--red)'; }
+}
+function changePass() {
+  const u = document.getElementById('new-user').value;
+  const p = document.getElementById('new-pass').value;
+  if (!u || !p) { alert('Заповніть логін та пароль'); return; }
+  localStorage.setItem('unistone_creds', JSON.stringify({ user: u, pass: p }));
+  alert('✓ Дані для входу змінено');
+}
+
+// ─── EXPORT CSV ───
+function exportCSV() {
+  const leads = getLeads();
+  if (!leads.length) { alert('Немає даних для експорту'); return; }
+  const headers = ['ID','Тип','Ім\'я','Телефон','Email','Актив','Бюджет/Ціна','Регіон','Статус','Коментар','Нотатка','Дата'];
+  const rows = leads.map(l => [
+    l.id, l.type==='buy'?'Купівля':'Продаж', l.name||'', l.phone||'', l.email||'',
+    l.type_field||'', l.budget||l.price||'', l.region||'',
+    l.status||'new', (l.message||'').replace(/[\n\r,]/g,' '), (l.note||'').replace(/[\n\r,]/g,' '),
+    l.timestamp ? new Date(l.timestamp).toLocaleString('uk-UA') : ''
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `unistone_leads_${new Date().toLocaleDateString('uk-UA').replace(/\./g,'-')}.csv`;
+  a.click();
+}
+function clearAll() {
+  if (confirm('Видалити ВСІ заявки? Цю дію не можна скасувати.')) {
+    localStorage.removeItem('unistone_leads');
+    renderDashboard();
+    alert('Всі заявки видалено');
+  }
+}
+
+// ─── DEMO DATA ───
+function addDemoData() {
+  const demo = [
+    { id:Date.now()-500000, type:'buy', name:'Андрій Коваленко', phone:'+380671234567', email:'kovalenko@gmail.com', type_field:'Виробниче підприємство', budget:'$5M — $20M', message:'Шукаю завод будматеріалів у Центральній Україні', status:'new', timestamp:new Date(Date.now()-2*24*3600000).toISOString(), lang:'uk' },
+    { id:Date.now()-400000, type:'sell', name:'Олег Бондаренко', phone:'+380501234567', email:'bondarenko@biz.ua', type_field:'Промислова нерухомість', price:'$1M — $5M', region:'Харків', message:'Продаю склад 5000 кв.м, зручна локація', status:'inwork', timestamp:new Date(Date.now()-5*24*3600000).toISOString(), lang:'uk' },
+    { id:Date.now()-300000, type:'buy', name:'John Smith', phone:'+442071234567', email:'j.smith@fund.com', type_field:'Виробниче підприємство', budget:'$20M+', message:'Looking for building materials manufacturing plant', status:'inwork', timestamp:new Date(Date.now()-1*24*3600000).toISOString(), lang:'en' },
+    { id:Date.now()-200000, type:'sell', name:'Микола Шевченко', phone:'+380631234567', email:'', type_field:'Земельна ділянка', price:'$1M — $5M', region:'Київська обл.', message:'Земля 10 га, промислове призначення, є всі комунікації', status:'done', timestamp:new Date(Date.now()-10*24*3600000).toISOString(), lang:'uk' },
+    { id:Date.now()-100000, type:'buy', name:'Іryna Lysenko', phone:'+380971234567', email:'lysenko@invest.ua', type_field:'Частка в бізнесі', budget:'$1M — $5M', message:'Цікавить частка у діючому виробництві', status:'new', timestamp:new Date().toISOString(), lang:'uk' },
+  ];
+  const existing = getLeads();
+  saveLeads([...existing, ...demo]);
+  renderDashboard();
+  alert('✓ Додано 5 тестових заявок');
+}
+
+// ─── INIT ───
+function init() {
+  renderDashboard();
+  document.getElementById('new-badge').textContent = getLeads().filter(l=>l.status==='new').length;
+  // mobile
+  if (window.innerWidth <= 768) document.getElementById('mob-btn').style.display = 'flex';
+}
+
+// keyboard
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
