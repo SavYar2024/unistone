@@ -54,7 +54,7 @@ img{display:block;max-width:100%}
 /* Premium dark-theme logo container */
 .brand-pill{
   display:inline-flex;align-items:center;justify-content:center;
-  min-height:86px;padding:18px 28px;border-radius:22px;
+  padding:12px 22px;border-radius:18px;
   background:linear-gradient(180deg,rgba(8,13,21,.84),rgba(10,16,24,.72));
   border:1px solid rgba(255,255,255,.12);
   box-shadow:0 18px 48px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08);
@@ -62,7 +62,7 @@ img{display:block;max-width:100%}
   transition:transform .25s, box-shadow .25s, border-color .25s;
 }
 .brand-pill:hover{transform:translateY(-1px);border-color:rgba(203,161,90,.38);box-shadow:0 24px 54px rgba(0,0,0,.42), 0 0 0 1px rgba(29,108,240,.12)}
-.brand-pill img{height:86px;width:auto;max-width:none;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
+.brand-pill img{display:block;height:54px;width:auto;max-width:none;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
 
 .main-nav{display:flex;gap:26px;align-items:center}
 .main-nav a{font-size:13px;font-weight:600;color:#c8d5e8;letter-spacing:.01em;transition:color .2s}
@@ -554,9 +554,10 @@ input:focus, select:focus, textarea:focus{box-shadow:0 0 0 4px rgba(29,108,240,.
 }
 
 .footer-logo img{
-  width: 300px;      /* фиксированная ширина */
-  height: auto;
-  object-fit: cover;
+  width: 220px;        /* фіксована ширина — компактніше у футері */
+  height: auto;        /* пропорції тримаються автоматично */
+  display: block;
+  max-width: 100%;
 }
 
 </style>
@@ -956,7 +957,7 @@ input:focus, select:focus, textarea:focus{box-shadow:0 0 0 4px rgba(29,108,240,.
       <p data-uk="Всі запити конфіденційні. Відповідаємо протягом декількох годин." data-en="All inquiries are confidential. We respond within a few hours.">Всі запити конфіденційні. Відповідаємо протягом декількох годин.</p>
       <div class="contact-chips">
         <a href="tel:+380672485225" class="chip">📞 +38 (067) 248 52 25</a>
-        <a href="mailto:office@unistone.capital" class="chip">✉️ office@unistone.capital</a>
+        <a href="/cdn-cgi/l/email-protection#c1aea7a7a8a2a481b4afa8b2b5aeafa4efa2a0b1a8b5a0ad" class="chip">✉️ <span class="__cf_email__" data-cfemail="96f9f0f0fff5f3d6e3f8ffe5e2f9f8f3b8f5f7e6ffe2f7fa">[email&#160;protected]</span></a>
         <span class="chip">📍 Київ, вул. Мокра 16, оф. 216</span>
       </div>
     </div>
@@ -974,7 +975,7 @@ input:focus, select:focus, textarea:focus{box-shadow:0 0 0 4px rgba(29,108,240,.
         <p class="footer-desc" data-uk="Провідне агентство промислової нерухомості та M&A в Україні. Активи від $1 млн. Конфіденційно." data-en="Leading industrial real estate and M&A agency in Ukraine. Assets from $1M. Confidential.">Провідне агентство промислової нерухомості та M&A в Україні. Активи від $1 млн. Конфіденційно.</p>
         <div class="footer-contact">
           <a href="tel:+380672485225">📞 +38 (067) 248 52 25</a>
-          <a href="mailto:office@unistone.capital">✉️ office@unistone.capital</a>
+          <a href="/cdn-cgi/l/email-protection#87e8e1e1eee4e2c7f2e9eef4f3e8e9e2a9e4e6f7eef3e6eb">✉️ <span class="__cf_email__" data-cfemail="d5bab3b3bcb6b095a0bbbca6a1babbb0fbb6b4a5bca1b4b9">[email&#160;protected]</span></a>
           <a href="#">📍 Київ, вул. Мокра 16, оф. 216</a>
         </div>
       </div>
@@ -1012,7 +1013,7 @@ input:focus, select:focus, textarea:focus{box-shadow:0 0 0 4px rgba(29,108,240,.
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── LANGUAGE ───
 let lang = 'uk';
 function setLang(l) {
